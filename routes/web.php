@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MojoController;
+use App\Http\Controllers\PaytmController;
 use App\Http\Controllers\RazorController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 // RazorPay Integration
 
-Route::get('/', [RazorController::class, 'index']);
-Route::post('order', [RazorController::class, 'order']);
-Route::post('pay', [RazorController::class, 'pay']);
+// Route::get('/', [RazorController::class, 'index']);
+// Route::post('order', [RazorController::class, 'order']);
+// Route::post('pay', [RazorController::class, 'pay']);
+
+// Paytm Integration
+Route::get('/', [PaytmController::class, 'index']);
+Route::post('order', [PaytmController::class, 'order']);
+Route::post('/pay', [PaytmController::class, 'paymentCallback']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
