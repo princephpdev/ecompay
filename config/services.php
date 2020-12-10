@@ -45,4 +45,20 @@ return [
         'industry_type' => env('PAYTM_INDUSTRY_TYPE'),
     ],
 
+    // Laravel Socialite Providers
+    // Googole , faceboook, twitter, linkedin 
+    // For more dteails go to laravel docs
+
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('SOCIAL_CALLBACK_URL'),
+    ],
+
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('SOCIAL_CALLBACK_URL'),
+    ],
+
 ];
