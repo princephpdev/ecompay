@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -16,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(15);
+        $posts = Post::latest()->paginate(10);
         return view('posts.index', compact('posts'));
     }
 
@@ -38,9 +39,19 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        Post::create($request->validated());
+        if($request->hasFile('file-upload')){
+            if ($request->file('file-upload')->isValid()){
+                $path = $request->file('file-upload')->store('post-photos', 'public');
 
-        return redirect()->route('posts.index');
+                $validated = $request->validated();
+                Post::create([
+                    'name' => $request->input('name'),
+                    'body' => $request->input('body'),
+                    'cover_photo_path' => $path,
+                ]);
+                return redirect()->route('posts.index');
+            }
+        }
     }
 
     /**
@@ -74,8 +85,25 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update($request->validated());
-        return redirect()->route('posts.index');
+        if($request->hasFile('file-upload')){
+            if ($request->file('file-upload')->isValid()){
+                Storage::delete('public/'.$post->cover_photo_path);
+
+                $path = $request->file('file-upload')->store('post-photos', 'public');
+
+                $validated = $request->validated();
+                $post->update([
+                    'body' => $request->input('body'),
+                    'cover_photo_path' => $path,
+                ]);
+
+                return redirect()->route('posts.index');
+            }
+        }
+        else{
+            $post->update($request->validated());
+            return redirect()->route('posts.index');
+        }
     }
 
     /**
@@ -86,6 +114,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        Storage::delete('public/'.$post->cover_photo_path);
         $post->delete();
         return redirect()->route('posts.index');
     }

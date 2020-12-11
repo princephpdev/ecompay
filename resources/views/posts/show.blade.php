@@ -14,24 +14,15 @@
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            <table class="min-w-full divide-y divide-gray-200 w-full">
-                                <tr class="border-b">
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Title
-                                    </th>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $post->name }}
-                                    </td>
-                                </tr>
-                                <tr class="border-b">
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Body
-                                    </th>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $post->body }}
-                                    </td>
-                                </tr>
-                            </table>
+                            <section class="text-gray-700 body-font">
+                            <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+                                <img class="lg:w-3/6 md:w-4/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" src="{{asset('storage/'.$post->cover_photo_path)}}">
+                                <div class="text-center lg:w-2/3 w-full">
+                                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{{$post->name}}</h1>
+                                <p class="mb-8 leading-relaxed">{{$post->body}}</p>
+                                </div>
+                            </div>
+                            </section>
                         </div>
                     </div>
                 </div>

@@ -26,6 +26,7 @@ class StorePostRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:posts|string|max:255',
+            'file-upload' => 'required|image|max:1024',
             'body' => 'required',
         ];
     }
