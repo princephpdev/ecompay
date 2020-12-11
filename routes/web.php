@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\MojoController;
 use App\Http\Controllers\PaytmController;
 use App\Http\Controllers\PostController;
@@ -43,3 +44,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::resource('posts', PostController::class);
 });
+
+// Mail Routes
+// Route::get('email', [MailController::class, 'sendMail']);
