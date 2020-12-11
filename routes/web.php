@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\MojoController;
 use App\Http\Controllers\PaytmController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\RazorController;
 use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('product');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // This is Instamojo Payment Gateway
 // Route::get('/', [MojoController::class, 'index']);
@@ -27,12 +28,18 @@ use Illuminate\Support\Facades\Route;
 // Route::post('/pay', [PaytmController::class, 'paymentCallback']);
 
 // Laravel Socialite
-Route::get('/', function(){
-    return view('social');
-});
-Route::get('social/redirect', [SocialController::class, 'socialRedirect']); //First redirect to social oauth page
-Route::get('social/callback', [SocialController::class, 'socialCallback']); // Then Callback to app with user creds
+// Route::get('/', function(){
+//     return view('social');
+// });
+// Route::get('social/redirect', [SocialController::class, 'socialRedirect']); //First redirect to social oauth page
+// Route::get('social/callback', [SocialController::class, 'socialCallback']); // Then Callback to app with user creds
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
+// Blogging Routes
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::resource('posts', PostController::class);
+});
